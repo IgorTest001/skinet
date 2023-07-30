@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-<!-- The Core project is going to contain our domain entities, things like our products class. -->
+<!-- The Core project is going to contain our domain entities, things like our Products class. -->
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
 </Project>
