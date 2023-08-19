@@ -5,6 +5,7 @@ using Core.Specifications;
 using API.Dtos;
 using AutoMapper;
 using API.Errors;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -33,12 +34,15 @@ namespace API.Controllers
             var countSpec = new ProductWithFiltersForCountSpecification(productSpecParams);
 
             var products = await _products.ListAsync(spec);
-            var totalCount = await _products.ListAsync(countSpec);
+            var totalCount = await _products.CountAsync(countSpec);
             
             if (products == null)   
                 return NotFound(new ApiResponse(404)); 
 
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products));
+
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+
+            return Ok(new Pagination<ProductToReturnDto>(productSpecParams.PageIndex, productSpecParams.PageSize, totalCount, data));
         } 
 
         [HttpGet("brands")]
