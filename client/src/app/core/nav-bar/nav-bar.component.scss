@@ -10,3 +10,21 @@
     top: -12px;
     right: -12px;
 }
+
+a {
+    text-decoration: none;
+    color: #343a40;
+
+    &.active {
+        color: orange;
+    }
+}
+
+// class to remove flicking of the logo-image when user switch between Shop and Home
+.logo {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}

@@ -45,6 +45,10 @@ export class ShopService {
                           );
   }
 
+  getProduct(id: number){
+    return this.httpClient.get<IProduct>(this.baseUrl + 'products/' + id);
+  }
+
   getBrands(){
     return this.httpClient.get<IBrand[]>(this.baseUrl + 'products/brands');
   }
