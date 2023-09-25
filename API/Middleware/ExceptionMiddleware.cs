@@ -35,8 +35,8 @@ namespace API.Middleware
                 httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 var response = _env.IsDevelopment()
-                                ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message)
-                                : new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString());
+                                ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
+                                : new ApiException((int)HttpStatusCode.InternalServerError, ex.Message);
 
                 var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
                 var json = JsonSerializer.Serialize(response, jsonOptions);
