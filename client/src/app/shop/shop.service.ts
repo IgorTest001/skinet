@@ -18,7 +18,7 @@ export class ShopService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getProducts(shopParams: ShopParams){
+  getProducts(shopParams: ShopParams) {
 
     let params = new HttpParams();
 
@@ -26,12 +26,13 @@ export class ShopService {
       params = params.append('brandId', shopParams.brandId.toString());  // 'brandId', 'typeId', 'sort' - are allowed strings that app would put into request-params
     }                                                         // and would send it to API
                                                               // API can recognize only these values
-    if (shopParams.search) {
-      params = params.append('search', shopParams.search);
-    }
 
     if (shopParams.typeId !== 0) {
       params = params.append('typeId', shopParams.typeId.toString());
+    }
+
+    if (shopParams.search) {
+      params = params.append('search', shopParams.search);
     }
 
     params = params.append('sort', shopParams.sort);
@@ -46,15 +47,15 @@ export class ShopService {
                           );
   }
 
-  getProduct(id: number){
+  getProduct(id: number) {
     return this.httpClient.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 
-  getBrands(){
+  getBrands() {
     return this.httpClient.get<IBrand[]>(this.baseUrl + 'products/brands');
   }
 
-  getTypes(){
+  getTypes() {
     return this.httpClient.get<IType[]>(this.baseUrl + 'products/types');
   }
 
