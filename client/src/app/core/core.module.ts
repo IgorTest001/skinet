@@ -8,6 +8,9 @@ import { ServerErrorComponent } from './server-error/server-error.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SectionHeaderComponent } from './section-header/section-header.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SharedModule } from '../shared/shared.module';
+import { OrderTotalsComponent } from '../shared/components/order-totals/order-totals.component';
 
 
 
@@ -20,11 +23,15 @@ import { BreadcrumbModule } from 'xng-breadcrumb';
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
-    })
+    }),
+    NgxSpinnerModule,
+    SharedModule
   ],
   exports: [
     NavBarComponent,
-    SectionHeaderComponent
+    SectionHeaderComponent,
+    NgxSpinnerModule,
+    OrderTotalsComponent
   ]
 })
 export class CoreModule { }
