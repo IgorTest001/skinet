@@ -1,6 +1,7 @@
 using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using StackExchange.Redis;
 
@@ -36,6 +37,7 @@ namespace API.Extenstions
                 return ConnectionMultiplexer.Connect(options);
             });
 
+            services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IBasketRepository, BasketRepository>();

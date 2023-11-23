@@ -2,8 +2,11 @@ using API.Errors;
 using API.Extenstions;
 using API.Helpers;
 using API.Middleware;
+using Core.Entities.Identity;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +18,11 @@ builder.Services.AddControllers();
 //var connection =  builder.Configuration.GetConnectionString("DefaultConnection");
 //(x => x.UseSqlite("Data Source = skinet.db"));
 builder.Services.AddDbContext<StoreContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("IdentityConnection")));
+
 builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
+
 builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -39,6 +46,7 @@ app.UseStatusCodePagesWithReExecute("/errors/{0}");
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseStaticFiles();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -51,6 +59,11 @@ try
 {
     await storeContext.Database.MigrateAsync();
     await StoreContextSeed.SeedAsync(storeContext, logger);
+
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+    await identityContext.Database.MigrateAsync();
+    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
 }
 catch(Exception ex)
 {
