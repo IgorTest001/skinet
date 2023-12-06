@@ -20,6 +20,7 @@ import { OrderTotalsComponent } from '../shared/components/order-totals/order-to
     CommonModule,
     RouterModule,
     BreadcrumbModule,
+    SharedModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true

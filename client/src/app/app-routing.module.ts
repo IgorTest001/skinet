@@ -13,6 +13,7 @@ const routes: Routes = [
   {path: 'shop', loadChildren: () => import('./shop/shop.module').then(module => module.ShopModule), data: {breadcrumb: 'Shop'}},
   {path: 'basket', loadChildren: () => import('./basket/basket.module').then(module => module.BasketModule), data: {breadcrumb: 'Basket'}},
   {path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(module => module.CheckoutModule), data: {breadcrumb: 'Checkout'}},
+  {path: 'account', loadChildren: () => import('./account/account.module').then(module => module.AccountModule), data: {breadcrumb: {skip: true}}},
   {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
 ];
 
