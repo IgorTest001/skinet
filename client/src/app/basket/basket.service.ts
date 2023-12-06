@@ -31,10 +31,10 @@ export class BasketService {
 
   setBasket(basket: IBasket){
     return this.httpClient.post(this.baseUrl + 'basket', basket)
-                          .subscribe({                            // This is where HTTP request is executed .subscribe()-method is used to handle the response from HTTP-request
+                          .subscribe({                            // This is where HTTP request is executed. The .subscribe()-method is used to handle the response from HTTP-request
                             next: (response: IBasket) => {        // This is a callback-function (aka Observer-function) that is executed when HTTP-request is successful.
                                 this.basketSource.next(response); // So, first we set/save the basket to the server-storage and receive the response-data from API using POST-request 
-                                this.calculateTotals();  // and then next:callback-function emits "response" through the 'basketSource' which serves as the source for other components.
+                                this.calculateTotals();  // and then the next:callback-function emits "response" through the 'basketSource' which serves as the source for other components.
                               },                  
                             error: error => {
                                 console.log(error);
