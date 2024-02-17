@@ -20,7 +20,7 @@ namespace API.Dtos
         public string State { get; set; }
         [Required]
         public string ZipCode { get; set; }
-        [Required]
-        public string AppUserId { get; set; }
+        // [Required]
+        // public string AppUserId { get; set; }
     }
 }
