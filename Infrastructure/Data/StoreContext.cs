@@ -7,6 +7,7 @@ using Core.Entities;
 using Core.Entities.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data
 {
@@ -34,9 +35,16 @@ namespace Infrastructure.Data
                 {
                     var properties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(decimal));
 
-                    foreach (var property in properties)
+                    var dateTimeProperties = entityType.ClrType.GetProperties().Where(p => p.PropertyType == typeof(DateTimeOffset));
+
+                    foreach (var decimalProperty in properties)
                     {
-                        modelBuilder.Entity(entityType.Name).Property(property.Name).HasConversion<double>();
+                        modelBuilder.Entity(entityType.Name).Property(decimalProperty.Name).HasConversion<double>();
+                    }
+
+                    foreach (var dateTimeProperty in dateTimeProperties)
+                    {
+                        modelBuilder.Entity(entityType.Name).Property(dateTimeProperty.Name).HasConversion(new DateTimeOffsetToBinaryConverter());
                     }
                 }
             }

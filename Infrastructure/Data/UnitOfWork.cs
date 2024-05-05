@@ -7,7 +7,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Data;
 
-namespace Infrastructure
+namespace Infrastructure.Data
 {
     public class UnitOfWork : IUnitOfWork
     {
@@ -39,7 +39,7 @@ namespace Infrastructure
 
             if (!_repositories.ContainsKey(type))
             {
-                var repositoryType = typeof(GenericRepository<TEntity>);
+                var repositoryType = typeof(GenericRepository<>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity)), _storeContext);
 
                 _repositories.Add(type, repositoryInstance);

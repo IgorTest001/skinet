@@ -29,6 +29,8 @@ namespace Core.Entities.OrderAggregate
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
         public string PaymentIntentId { get; set; }
 
+        // AutoMapper convention:
+        // AutoMapper uses GET + "Total" to both run|calculate its value and to map|show this property to the corresponding field of the mapper-scheme.
         public decimal GetTotal() 
         {
             return Subtotal + DeliveryMethod.Price;
